@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aloha.post.dto.Page;
 import com.aloha.post.dto.Post;
 import com.aloha.post.mapper.PostMapper;
 
@@ -18,6 +19,13 @@ public class PostServiceImpl implements PostService {
     public List<Post> list() throws Exception {
         List<Post> postList = postMapper.list();
         return postList;
+    }
+
+    @Override
+    public List<Post> pagingList(Page page) throws Exception {
+        long total = postMapper.count();
+        page.setTotal(total);
+        return postMapper.pagingList(page);
     }
 
     @Override

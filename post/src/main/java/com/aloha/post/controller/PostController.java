@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import com.aloha.post.dto.Page;
 import com.aloha.post.dto.Post;
 import com.aloha.post.service.PostService;
 
@@ -26,9 +28,18 @@ public class PostController {
     private PostService postService;
 
     @GetMapping("/list")
-    public String list(Model model) throws Exception {
-        List<Post> postList = postService.list();
+    public String list(Model model, Page page) throws Exception {
+        List<Post> postList = postService.pagingList(page);
+        model.addAttribute("page", page);
         model.addAttribute("postList", postList);
+
+        String pageUri = UriComponentsBuilder.fromPath("/Post/list")
+                                             .queryParam("size", page.getSize())
+                                             .queryParam("count", page.getCount())
+                                             .build()
+                                             .toUriString();
+        model.addAttribute("pageUri", pageUri);
+
         return "Post/list";
     }
     

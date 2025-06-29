@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시글 목록</title>
 </head>
+
 <body>
     <h1>게시글 목록</h1>
     <a href="/Post/insert">글쓰기</a>
@@ -38,6 +40,39 @@
         </th:block>
     </table>
 
-    
+    <!-- 페이지 번호 -->
+    <nav aria-label="Page navigation" th:object="${page}">
+        <ul style="list-style:none; display:flex; gap:4px; padding:0; margin:16px 0;">
+            <!-- [첫] -->
+            <li>
+                <a th:href="@{ ${pageUri} + '&page=' + *{first} }"
+                    style="padding:4px 8px; text-decoration:none; border:1px solid #ccc; border-radius:3px;">&laquo;</a>
+            </li>
+            <!-- [이전] -->
+            <li th:if="${ page.page != page.first }">
+                <a th:href="@{ ${pageUri} + '&page=' + *{prev} }"
+                    style="padding:4px 8px; text-decoration:none; border:1px solid #ccc; border-radius:3px;">&lsaquo;</a>
+            </li>
+            <!-- [번호] -->
+            <th:block th:each="pageNum : *{ #numbers.sequence( start, end )}">
+                <li>
+                    <a th:href="@{ ${pageUri} + '&page=' + ${pageNum} }" th:text="${pageNum}"
+                        th:style="${page.page == pageNum} ? 'padding:4px 8px; border:1px solid #333; background:#eee; font-weight:bold; border-radius:3px; text-decoration:none;' : 'padding:4px 8px; border:1px solid #ccc; border-radius:3px; text-decoration:none;'">
+                    </a>
+                </li>
+            </th:block>
+            <!-- [다음] -->
+            <li th:if="${ page.page != page.last }">
+                <a th:href="@{ ${pageUri} + '&page=' + *{next} }"
+                    style="padding:4px 8px; text-decoration:none; border:1px solid #ccc; border-radius:3px;">&rsaquo;</a>
+            </li>
+            <!-- [마지막] -->
+            <li>
+                <a th:href="@{ ${pageUri} + '&page=' + *{last} }"
+                    style="padding:4px 8px; text-decoration:none; border:1px solid #ccc; border-radius:3px;">&raquo;</a>
+            </li>
+        </ul>
+    </nav>
 </body>
+
 </html>
