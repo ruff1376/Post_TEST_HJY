@@ -8,54 +8,47 @@
 <body>
     <h1>게시글 수정</h1>
 
-    <form id="form" action="/Post/update" method="post">
-        <input type="hidden" name="no" th:value="${post.no}">
+    <form id="form" action="/Post/update" method="post" th:object="${post}" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{no}">
 
-        <table>
+        <table border="1">
             <tr>
                 <td>제목</td>
                 <td>
-                    <input type="text" name="title" th:value="${post.title}">
+                    <input type="text" th:field="*{title}">
                 </td>
             </tr>
             <tr>
                 <td>작성자</td>
                 <td>
-                    <input type="text" name="writer" th:value="${post.writer}">
+                    <input type="text" th:field="*{writer}">
                 </td>
             </tr>
             <tr>
-                <td colspan="2">
-                    <textarea name="content" id="content" cols="40" rows="5"
-                              th:text="${post.content}"></textarea>
+                <td>내용</td>
+                <td>
+                    <textarea th:field="*{content}" rows="5" cols="40"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right">
+                    <button type="button" onclick="location.href='/Post/list'">목록</button>
+                    <button type="submit">수정</button>
+                    <button type="button" onclick="remove()">삭제</button>
                 </td>
             </tr>
         </table>
-        <div>
-            <button type="submit">수정</button>
-            <button type="button" onclick="actionDelete()">삭제</button>
-            <button type="button" onclick="moveList()">목록</button>
-        </div>
     </form>
 
     <script>
-        let form = document.getElementById('form')
+        const $form = document.getElementById('form')
+        const no = [[${post.no}]]
 
-        // 👩‍💻 모델 객체를 자바스크립트로 가져오는 방법
-        let no = "[[${post.no}]]"
-        
-        // 삭제 요청
-        function actionDelete() {
-            let check = confirm('정말로 삭제하시겠습니까?')
-            if( check ) {
-                form.action = '/Post/delete'
-                form.submit()
-            }
-        }
-
-        // 목록 화면 이동
-        function moveList() {
-            location.href = '/Post/list'
+        function remove() {
+            const check = confirm(`정말로 삭제하시겠습니까?`)
+            if (!check) return
+            $form.action = `/Post/delete/${no}`
+            $form.submit()
         }
     </script>
 </body>

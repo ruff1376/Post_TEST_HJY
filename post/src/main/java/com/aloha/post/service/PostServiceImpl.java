@@ -21,7 +21,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post select(int no) throws Exception {
+    public Post select(Integer no) throws Exception {
         Post post = postMapper.select(no);
         return post;
     }
@@ -37,7 +37,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public boolean delete(int no) throws Exception {
+    public boolean delete(Integer no) throws Exception {
         return postMapper.delete(no) > 0;
     }
     

@@ -8,11 +8,33 @@
 <body>
     <h1>게시글 등록</h1>
 
-    <form action="/Post/insert" method="post">
-        <input type="text" name="title" id="title">
-        <input type="text" name="writer" id="writer">
-        <input type="text" name="content" id="content">
-        <input type="submit" value="등록">
+    <form th:action="@{/Post/insert}" method="post" th:object="${post}" enctype="multipart/form-data">
+        <table border="1">
+            <tr>
+                <td>제목</td>
+                <td>
+                    <input type="text" th:field="*{title}">
+                </td>
+            </tr>
+            <tr>
+                <td>작성자</td>
+                <td>
+                    <input type="text" th:field="*{writer}">
+                </td>
+            </tr>
+            <tr>
+                <td>내용</td>
+                <td>
+                    <textarea th:field="*{content}" rows="5" cols="40"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right">
+                    <button type="button" onclick="location.href='/Post/list'">목록</button>
+                    <button type="submit">등록</button>
+                </td>
+            </tr>
+        </table>
     </form>
 </body>
 </html>

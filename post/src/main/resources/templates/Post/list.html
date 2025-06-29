@@ -25,8 +25,7 @@
             <tr>
                 <td align="center" th:text="${post.no}"></td>
                 <td>
-                    <a th:href="|/Post/read?PostNo=${post.no}|" 
-                    th:text="${post.title}"></a>
+                    <a th:href="|/Post/read/${post.no}|" th:text="${post.title}"></a>
                 </td>
                 <td align="center" th:text="${post.writer}"></td>
                 <td align="center">

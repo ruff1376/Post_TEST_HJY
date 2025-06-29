@@ -3,7 +3,6 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- namespace="매퍼 인터페이스 경로" --> 
 <mapper namespace="com.aloha.post.mapper.PostMapper">
     <!-- 게시글 목록 -->
     <select id="list" resultType="Post">
@@ -21,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 게시글 등록 -->
     <insert id="insert">
-        INSERT INTO post(id, title, writer, content)
+        INSERT INTO post (id, title, writer, content)
         VALUES ( #{id}, #{title}, #{writer}, #{content} )
     </insert>
 
